@@ -43,7 +43,7 @@
 % f and e
 % List of grandsons:
 % d is grandson a
-% e  is grandson a
+% e is grandson a
 % f is grandson a
 % List descendents:
 % b is descendent a
