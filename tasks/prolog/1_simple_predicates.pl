@@ -10,8 +10,28 @@
 	father(b,d).  % 3
 	father(b,e).  % 4
 	father(c,f).  % 5
+	
+	brother(X,Y) :- father(Z,X), father(Z,Y), X \= Y.
+	cousin(X,Y) :- father(W,X), father(Z,Y), brother(W,Z).
+	grandson(X,Y) :- father(Y,Z), father(Z,X).
+	
+	descendent(X,Y) :- father(Y,X).
+	descendent(X,Y) :- father(Y,Z), descendent(X,Z).
+	
 % указать в каком порядке и какие ответы генерируются вашими методами
-	?- brother(X,Y).
-	?- cousin(X,Y).
-	?- grandson(X,Y).
-	?- descendent(X,Y).
+%	?- brother(X,Y).
+%	?- cousin(X,Y).
+%	?- grandson(X,Y).
+%	?- descendent(X,Y).
+
+% ?- bagof([X,Y],brother(X,Y),L).
+% L = [[b, c], [c, b], [d, e], [e, d]].
+
+% ?- bagof([X,Y],cousin(X,Y),L).
+% L = [[d, f], [e, f], [f, d], [f, e]].
+
+% ?- bagof([X,Y],grandson(X,Y),L).
+% L = [[d, a], [e, a], [f, a]].
+
+% ?- bagof([X,Y],descendent(X,Y),L).
+% L = [[b,a],[c,a],[d,b],[e,b],[f,c],[d,a],[e,a],[f,a]].
