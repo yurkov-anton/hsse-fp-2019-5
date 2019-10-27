@@ -18,7 +18,7 @@
 
 brother(X,Y) :- father(Z,Y), father(Z,X), X \= Y.
 
-cousin(X,Y) :- father(Z,K), father(Z,L), father(K,X), father(L,Y), K \= L.
+cousin(X,Y) :- father(K,X), father(L,Y), brother(K,L).
 
 grandson(X,Y) :- father(Y,Z), father(Z,X).
 
