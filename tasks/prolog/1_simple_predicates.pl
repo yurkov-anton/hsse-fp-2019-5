@@ -15,3 +15,46 @@
 	?- cousin(X,Y).
 	?- grandson(X,Y).
 	?- descendent(X,Y).
+
+
+
+:- writeln('List of brothers:').
+:- forall(brother(X,Y), (write(X), write(' and '), write(Y), writeln(' are brothers'))).
+
+:- writeln('List of cousins:').
+:- forall(cousin(X,Y), (write(X), write(' and '), writeln(Y))).
+
+:- writeln('List of grandsons:').
+:- forall(grandson(X,Y), (write(X), write(' is grandson '), writeln(Y))).
+
+:- writeln('List descendents:').
+:- forall(descendent(X,Y), (write(X), write(' is descendent '), writeln(Y))).
+
+/**
+List of brothers:
+b and c are brothers
+c and b are brothers
+d and e are brothers
+e and d are brothers
+List of cousins:
+d and f
+e and f
+f and d
+f and e
+List of grandsons:
+d is grandson a
+e is grandson a
+f is grandson a
+List descendents:
+b is descendent a
+c is descendent a
+d is descendent b
+e is descendent b
+f is descendent c
+d is descendent a
+e is descendent a
+f is descendent a
+true.
+*/
+
+
