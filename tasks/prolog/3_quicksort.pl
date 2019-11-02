@@ -1,1 +1,25 @@
-% РћРїСЂРµРґРµР»РёС‚СЊ РїСЂРµРґРёРєР°С‚ qsort(L, K) РєРѕС‚РѕСЂС‹Р№ РґР»СЏ Р·Р°РґР°РЅРЅРѕРіРѕ СЃРїРёСЃРєР° С†РµР»С‹С… С‡РёСЃРµР» РІРѕР·РІСЂР°С‰Р°РµС‚ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ 
+% Функция разделения списка на 2 части, в первой части находятся
+% элементы больше заданного згачения, во второй меньше заданного
+% значения.
+divide([], _Pivot, [], []):-!.
+divide([Head|Tail], Pivot, [Head|GreaterList], SmallerList):-
+  Head >= Pivot, !, divide(Tail, Pivot, GreaterList, SmallerList).
+divide([Head|Tail], Pivot, GreaterList, [Head|SmallerList]):-
+  divide(Tail, Pivot, GreaterList, SmallerList).
+
+qsort([], []).
+qsort([Elem], [Elem]).
+qsort([Pivot|Tail], SortedList):-
+  divide(Tail, Pivot, GreaterList, SmallerList),
+  qsort(GreaterList, SortedGreaterList),
+  qsort(SmallerList, SortedSmallerList),!,
+  append(SortedSmallerList, [Pivot|SortedGreaterList], SortedList).
+
+% ?- qsort([3, 4, 2, 6, 5, 9], X).
+% X = [2, 3, 4, 5, 6, 9]
+%
+% ?- qsort([3], X).
+% X = [3]
+%
+% ?- qsort([], X).
+% X = []
