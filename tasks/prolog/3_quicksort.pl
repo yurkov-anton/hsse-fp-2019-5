@@ -1,6 +1,6 @@
-% Функция разделения списка на 2 части, в первой части находятся
-% элементы больше заданного згачения, во второй меньше заданного
-% значения.
+% The function of dividing the list into 2 parts, in the first part are
+% elements are greater than the specified value, in the second less than
+% the specified value.
 divide([], _Pivot, [], []):-!.
 divide([Head|Tail], Pivot, [Head|GreaterList], SmallerList):-
   Head >= Pivot, !, divide(Tail, Pivot, GreaterList, SmallerList).
