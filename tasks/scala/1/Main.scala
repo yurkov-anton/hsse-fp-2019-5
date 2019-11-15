@@ -1,5 +1,4 @@
-package recfun
-import common._
+import scala.collection.immutable._
 
 object Main {
   def main(args: Array[String]) {
@@ -9,20 +8,40 @@ object Main {
         print(pascal(col, row) + " ")
       println()
     }
+
+    val listChars = List('(', '(', ')', '(', ')', ')')
+    val money = 5
+    val coins = List(2, 3)
+
+    println("Balance parentheses: " + listChars)
+    println(balance(listChars))
+
+    println("Count change: money - " + money + ", coin - " + coins)
+    println(countChange(money, coins))
   }
 
   /**
    * Exercise 1
    */
   def pascal(c: Int, r: Int): Int = {
-
+    if (c == 0 || r == 0) 1
+    else pascal(c - 1, r - 1) + pascal(c - 1, r)
   }
 
   /**
    * Exercise 2 Parentheses Balancing
    */
   def balance(chars: List[Char]): Boolean = {
-   
+    def checkParentheses(chars: List[Char], countParentheses: Int): Boolean = {
+      if (chars.isEmpty) countParentheses == 0
+      else if (chars.head == '(')
+        checkParentheses(chars.tail, countParentheses + 1)
+      else if (chars.head == ')')
+        countParentheses > 0 && checkParentheses(chars.tail, countParentheses - 1)
+      else checkParentheses(chars.tail, countParentheses)
+    }
+
+    checkParentheses(chars, 0)
   }
 
   /**
@@ -33,6 +52,8 @@ object Main {
    * 2 and 3: 2+3.
    */
   def countChange(money: Int, coins: List[Int]): Int = {
-
+    if (money == 0) 1
+    else if (money < 0 || coins.isEmpty) 0
+    else countChange(money, coins.tail) + countChange(money - coins.head, coins)
   }
 }
