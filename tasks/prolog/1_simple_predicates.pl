@@ -30,7 +30,7 @@
 :- writeln('List descendents:').
 :- forall(descendent(X,Y), (write(X), write(' is descendent '), writeln(Y))).
 
-/**
+/*
 List of brothers:
 b and c are brothers
 c and b are brothers
