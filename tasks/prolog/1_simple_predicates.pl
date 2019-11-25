@@ -11,7 +11,61 @@
 	father(b,e).  % 4
 	father(c,f).  % 5
 % указать в каком порядке и какие ответы генерируются вашими методами
-	?- brother(X,Y).
-	?- cousin(X,Y).
-	?- grandson(X,Y).
-	?- descendent(X,Y).
+brother(Person1, Person2):-
+	father(Dad, Person1),
+	father(Dad, Person2),
+	not(Person1 = Person2).
+
+cousin(Person1, Person2):-
+	father(Dad1, Person1),
+	father(Dad2, Person2),
+	not(Person1 = Person2),
+	brother(Dad1, Dad2).
+
+grandson(Grandson, Grandfather):-
+	father(Grandfather, Son),
+	father(Son, Grandson).
+
+descent(Descendent, Predecessor):-
+	father(Predecessor, Node),
+	descent(Descendent, Node).
+
+descent(Descendent, Predecessor):-
+	father(Predecessor, Descendent).
+
+
+test:-
+	writeln('Brothers:'),
+	forall(brother(Person1, Person2), (write(Person1), write(' and '), write(Person2), nl)),
+	writeln('Cousins:'),
+	forall(cousin(Person1, Person2), (write(Person1), write(' and '), write(Person2), nl)),
+	writeln('Grandsons:'),
+	forall(grandson(Person1, Person2), (write(Person1), write(' and '), write(Person2), nl)),
+	writeln('Descendents:'),
+	forall(descent(Person1, Person2), (write(Person1), write(' and '), write(Person2), nl)).
+	
+% Output:
+% Brothers:
+% b and c
+% c and b
+% d and e
+% e and d
+% Cousins:
+% d and f
+% e and f
+% f and d
+% f and e
+% Grandsons:
+% d and a
+% e and a
+% f and a
+% Descendents:
+% d and a
+% e and a
+% f and a
+% b and a
+% c and a
+% d and b
+% e and b
+% f and c
+% true
