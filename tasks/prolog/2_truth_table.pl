@@ -10,3 +10,34 @@
 % true fail true
 % fail true fail
 % fail fail fail
+
+/* window10 swi-prolog */
+:- style_check(-singleton). /* warning */
+/* definition */
+and(A,B) :- A,B.
+or(A,B)   :- A;B.
+xor(A,B)  :- A\=B.
+equ(A, B) :- A = B.
+not(A) :- \+ A.
+
+bool(true).
+bool(fail).
+
+evaluate(X, true) :- X, !.
+evaluate(_, fail).
+
+truth_table(A,B,X) :-
+  bool(A),
+  bool(B),
+  write(A),
+  write(' \t '),
+  write(B),
+  write(' \t '),
+  evaluate(X, Y),
+  write(Y), nl, fail.
+  
+?- truth_table(A,B,and(A,or(A,B))).
+true     true    true
+true     fail    true
+fail     true    fail
+fail     fail    fail
