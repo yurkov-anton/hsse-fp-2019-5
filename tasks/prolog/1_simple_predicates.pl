@@ -15,3 +15,68 @@
 	?- cousin(X,Y).
 	?- grandson(X,Y).
 	?- descendent(X,Y).
+	
+/* window10 swi-prolog */
+:- style_check(-singleton). /* warning */
+father(a,b).
+father(a,c).
+father(b,d).
+father(b,e).
+father(c,f).
+
+/*definition*/
+brother(X,Y) :- father(Z,X), father(Z,Y), X\=Y.
+cousin(X,Y) :- father(M,X), father(N,Y), brother(M,N), M\=N.
+grandson(X,Y) :- father(Y,Q), father(Q,X).
+descendent(X,Y) :- father(Y,X).
+descendent(X,Y) :- grandson(X,Y).
+
+?- brother(X,Y).
+X = b,
+Y = c ;
+X = c,
+Y = b ;
+X = d,
+Y = e ;
+X = e,
+Y = d ;
+false.
+
+?- cousin(X,Y).
+X = d,
+Y = f ;
+X = e,
+Y = f ;
+X = f,
+Y = d ;
+X = f,
+Y = e ;
+false.
+
+?- grandson(X,Y).
+X = d,
+Y = a ;
+X = e,
+Y = a ;
+X = f,
+Y = a ;
+false.
+
+?- descendent(X,Y).
+X = b,
+Y = a ;
+X = c,
+Y = a ;
+X = d,
+Y = b ;
+X = e,
+Y = b ;
+X = f,
+Y = c ;
+X = d,
+Y = a ;
+X = e,
+Y = a ;
+X = f,
+Y = a ;
+false.
