@@ -10,3 +10,17 @@
 % true fail true
 % fail true fail
 % fail fail fail
+
+boolean(true).
+boolean(false).
+
+and(A, B) :- A, B.
+or(A, B) :- A; B.
+xor(A, B) :- A \= B.
+not(A) :- xor(true, A).
+equ(A, B) :- A = B.
+
+exec(X, true) :- X, !.
+exec(Y, false).
+
+truth_table(A, B, Expression) :- boolean(A), boolean(B), write(A), write('\s'), write(B), write('\s'), exec(Expression, X), writeln(X), false.
