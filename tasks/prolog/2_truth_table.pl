@@ -10,3 +10,27 @@
 % true fail true
 % fail true fail
 % fail fail fail
+
+and(A,B) :- A, B.
+or(A,_) :- A.
+or(_,B) :- B.
+xor(A,B) :- A \= B.
+not(A) :- xor(true, A).
+equ(A,B) :- or(and(A,B), and(not(A),not(B))).
+
+% bindv(X) :- instantiate X to be true and false successively
+
+boolv(true).
+boolv(fail).
+
+truth_table(A,B,Exp) :- boolv(A), boolv(B), do(A,B,Exp), fail.
+
+do(A,B,_) :- write(A), write('  '), write(B), write('  '), fail.
+do(_,_,Expr) :- Expr, !, write(true), nl.
+do(_,_,_) :- write(fail), nl.
+
+% ?- truth_table(A,B,and(A,or(A,B))).
+% true  true  true
+% true  fail  true
+% fail  true  fail
+% fail  fail  fail
