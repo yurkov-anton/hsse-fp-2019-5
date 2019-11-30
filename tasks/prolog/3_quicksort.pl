@@ -11,10 +11,10 @@ split(Middle,[Head|Tail],L1,[Head|L2]) :-
 split(_,[],[],[]).
 
 quicksort([Head|Tail],R) :-
-	split(Head,[Head|Tail],[H1|L1],L2),
+    split(Head,[Head|Tail],[H1|L1],L2),
     quicksort(L1,R1),
     quicksort(L2,R2),
-	append(R1,[H1|R2],R).
+    append(R1,[H1|R2],R).
 
 quicksort([],[]).
 
