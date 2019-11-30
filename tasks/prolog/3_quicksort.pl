@@ -9,17 +9,12 @@ partition([H|T], Y, Le, [H | Gt]) :-
 
 partition([], Y, [], []).
 
-qsort([],[]).
+qsort(L, K) :- quicksort(L, K), !.
 
-qsort([H|T], Result) :-
+quicksort([],[]).
+
+quicksort([H|T], Result) :-
 	partition(T, H, Left, Right),
-	qsort(Left, LeftRes),
-	qsort(Right, RightRes),
+	quicksort(Left, LeftRes),
+	quicksort(Right, RightRes),
 	append(LeftRes, [H | RightRes], Result).
-
-
-qsort(L, K) :- qsort(L, K).
-
-
-
-
