@@ -10,3 +10,26 @@
 % true fail true
 % fail true fail
 % fail fail fail
+
+and(A, B) :- A, B.
+or(A, B) :- A; B.
+xor(A, B) :- A \= B.
+not(A) :- A = false.
+equ(A,B) :- A = B.
+
+evaluate(E, true) :- E, !.
+evaluate(_, fail).
+
+truth_table(A, B, E) :-
+    member(A,[true,false]),
+    member(B,[true,false]),
+    calculate(E, R),
+    format('~w ~w ~w~n', [A, B, R]),
+    fail.
+
+%?-truth_table(A, B, and(A, or(A, B))).
+
+%true true true
+%true fail true
+%fail true fail
+%fail fail fail
