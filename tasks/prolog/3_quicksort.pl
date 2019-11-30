@@ -1,4 +1,5 @@
 % Определить предикат qsort(L, K) который для заданного списка целых чисел возвращает отсортированный 
+
 split(Middle,[Head|Tail],[Head|L1],L2) :- 
     Head =< Middle, 
     split(Middle,Tail,L1,L2). 
